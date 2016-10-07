@@ -68,34 +68,48 @@
 		<div class="container theme-showcase" role="main">
 			<div class="row">
 		        <div class="col-md-4">
-		        	<button type="button" class="btn btn-primary" onclick="buyIntern()">Hire Intern</button>
+		        	<button id="internbutton" type="button" class="btn btn-primary" onclick="buyIntern()" disabled>Hire Intern</button>
 					<br />
 					Intern Cost: <span id="internCost">10</span>
 					<br />
+					Passively generates 1 dollar per second.
+					<br />
 					<br />
 
-					<button type="button" class="btn btn-primary" onclick="buyGeek()">Hire Geek</button>
+					<button id="geekbutton" type="button" class="btn btn-primary" onclick="buyGeek()" disabled>Hire Geek</button>
 					<br />
 					Geek Cost: <span id="geekCost">100</span>
 					<br />
+					Passively generates 10 dollars per second.
+					<br />
 					<br />
 
-					<button type="button" class="btn btn-primary" onclick="buyManish()">Hire Manish</button>
+					<button id="manishbutton" type="button" class="btn btn-primary" onclick="buyManish()" disabled>Hire Manish</button>
 					<br />
 					Manish Cost: <span id="manishCost">1000</span>
+					<br />
+					Passively generates 6671 rupees (100 dollars) per second.
 					<br />
 					<br />
 		        </div>
 		        <div class="col-md-4">
-		        	<button type="button" class="btn btn-warning" onclick="buyCoffeeMachine()">Buy Coffee Machine</button>
+		        	<button id="coffeebutton" type="button" class="btn btn-warning" onclick="buyCoffeeMachine()" disabled>Buy Coffee Machine</button>
 					<br />
 					Coffee Machine Cost: <span id="coffeeCost">100</span>
 					<br />
+					Multiplies coding efficiency by 2 for 10 seconds.
+					<br />
+					Time left: <span id="coffeetimelabel">0</span>
+					<br />
 					<br />
 
-					<button type="button" class="btn btn-warning" onclick="buyRedBull()">Buy Red Bull</button>
+					<button id="redbullbutton" type="button" class="btn btn-warning" onclick="buyRedBull()" disabled>Buy Red Bull</button>
 					<br />
 					Red Bull Cost: <span id="redbullCost">1000</span>
+					<br />
+					Multiplies coding efficiency by 4 for 10 seconds.
+					<br />
+					Time left: <span id="redbulltimelabel">0</span>
 					<br />
 					<br />
 		        </div>
