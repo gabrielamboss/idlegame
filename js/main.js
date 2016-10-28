@@ -1,20 +1,68 @@
-var money = 50000;
+var money = 0;
+var interns = 0;
+var geeks = 0;
+var manishes = 0;
+var coffeetime = 0;
+var redbulltime = 0;
+var coffeemodifier = 1;
+var redbullmodifier = 1;
+var globalmodifier;
+
+getState();
+
+
+function createCookie(name, value, days) {
+    var expires;
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else {
+        expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
+}
 
 function dollarClick(number){
     money = money + number;
     document.getElementById("money").innerHTML = money;
 }
 
-var interns = 0;
-var geeks = 0;
-var manishes = 0;
+function saveState(){
+	var name = "state";
+	var json = {"money":money, "interns": interns, "geeks": geeks, "manishes": manishes};
+	var days = 3;
+	var value = JSON.stringify(json);
+	localStorage.setItem('state', value);
+	// createCookie(name, value, days)
+}
 
-var coffeetime = 0;
-var redbulltime = 0;
-
-var coffeemodifier = 1;
-var redbullmodifier = 1;
-var globalmodifier;
+function getState(){
+	var v = localStorage.getItem('state');
+	// console.log(value)
+	var json = JSON.parse(v);
+	console.log(json)
+	money = json.money;
+	interns = json.interns;
+	geeks = json.geeks;
+	manishes = json.manishes;
+}
 
 function buyIntern(){
     var internCost = Math.floor(10 * Math.pow(1.1,interns));
