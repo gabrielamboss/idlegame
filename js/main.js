@@ -8,7 +8,7 @@ var coffeemodifier = 1;
 var redbullmodifier = 1;
 var globalmodifier;
 
-getState();
+//getState();
 
 
 function createCookie(name, value, days) {
@@ -51,17 +51,52 @@ function saveState(){
 	var value = JSON.stringify(json);
 	localStorage.setItem('state', value);
 	// createCookie(name, value, days)
+
+    document.getElementById('loadLabel').innerHTML = "Saved";
+    eraseLabelAfterSeconds(3);
 }
 
 function getState(){
 	var v = localStorage.getItem('state');
-	// console.log(value)
+
+    if(v == null){
+        document.getElementById('loadLabel').innerHTML = "No save file found";
+        eraseLabelAfterSeconds(3);
+        return;
+    }
+
 	var json = JSON.parse(v);
 	console.log(json)
 	money = json.money;
 	interns = json.interns;
 	geeks = json.geeks;
 	manishes = json.manishes;
+
+    updateWorkersFromSave();
+
+    document.getElementById('loadLabel').innerHTML = "Successfully loaded";
+    eraseLabelAfterSeconds(3);
+}
+
+function updateWorkersFromSave(){
+    document.getElementById('interns').innerHTML = interns;
+    document.getElementById('geeks').innerHTML = geeks;
+    document.getElementById('manishes').innerHTML = manishes;
+
+    var nextCost = Math.floor(10 * Math.pow(1.1,interns));
+    document.getElementById('internCost').innerHTML = nextCost;
+
+    nextCost = Math.floor(100 * Math.pow(1.1,geeks));
+    document.getElementById('geekCost').innerHTML = nextCost;
+
+    nextCost = Math.floor(1000 * Math.pow(1.1,manishes));
+    document.getElementById('manishCost').innerHTML = nextCost;
+}
+
+function eraseLabelAfterSeconds(seconds){
+    window.setTimeout(function(){
+    document.getElementById('loadLabel').innerHTML = "";
+}, seconds*1000);
 }
 
 function buyIntern(){
