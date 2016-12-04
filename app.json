@@ -1,0 +1,8 @@
+{
+  "name": "Servidor",
+  "description": "Servidor Idlegame",
+  "repository": "https://github.com/gabrielamboss/idlegame/tree/calango",
+  "logo": "",
+  "keywords": ["node", "express", "static"],
+  "image": "heroku/nodejs"
+}
