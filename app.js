@@ -7,8 +7,9 @@ var app = new Express();
 var router = Express.Router();
 
 // Setup Port
-var port = 8080;
-app.set('port', port);
+// var port = 8080;
+// app.set('port', port);
+app.set('port', (process.env.PORT || 5000));
 
 //Logger
 app.use(logger('dev'));
