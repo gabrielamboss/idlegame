@@ -6,8 +6,7 @@ var logger = require('morgan');
 var app = new Express();
 var router = Express.Router();
 
-
-//Setup Port
+// Setup Port
 var port = 8080;
 app.set('port', port);
 
