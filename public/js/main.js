@@ -2,14 +2,18 @@ var money = 0;
 var interns = 0;
 var geeks = 0;
 var manishes = 0;
+var yanos = 0;
+var bills = 0;
 var coffeetime = 0;
 var redbulltime = 0;
+var pizzatime = 0;
 var coffeemodifier = 1;
 var redbullmodifier = 1;
+var pizzamodifier = 1;
 var globalmodifier;
 
-getState();
-
+//getState();
+money = 1000000000;
 
 function createCookie(name, value, days) {
     var expires;
@@ -46,7 +50,7 @@ function dollarClick(number){
 
 function saveState(){
 	var name = "state";
-	var json = {"money":money, "interns": interns, "geeks": geeks, "manishes": manishes};
+	var json = {"money":money, "interns": interns, "geeks": geeks, "manishes": manishes, "yanos": yanos, "bills": bills};
 	var days = 3;
 	var value = JSON.stringify(json);
 	localStorage.setItem('state', value);
@@ -71,6 +75,8 @@ function getState(){
 	interns = json.interns;
 	geeks = json.geeks;
 	manishes = json.manishes;
+    yanos = json.yanos;
+    bills = json.bills;
 
     updateWorkersFromSave();
 
@@ -131,6 +137,8 @@ function updateWorkersFromSave(){
     document.getElementById('interns').innerHTML = interns;
     document.getElementById('geeks').innerHTML = geeks;
     document.getElementById('manishes').innerHTML = manishes;
+    document.getElementById('yanos').innerHTML = yanos;
+    document.getElementById('bills').innerHTML = bills;
 
     var nextCost = Math.floor(10 * Math.pow(1.1,interns));
     document.getElementById('internCost').innerHTML = nextCost;
@@ -140,6 +148,12 @@ function updateWorkersFromSave(){
 
     nextCost = Math.floor(1000 * Math.pow(1.1,manishes));
     document.getElementById('manishCost').innerHTML = nextCost;
+
+    nextCost = Math.floor(100000 * Math.pow(1.1,yanos));
+    document.getElementById('yanoCost').innerHTML = nextCost;
+
+    nextCost = Math.floor(10000000 * Math.pow(1.1,bills));
+    document.getElementById('billCost').innerHTML = nextCost;
 }
 
 function eraseLabelAfterSeconds(seconds){
@@ -184,6 +198,30 @@ function buyManish(){
     document.getElementById('manishCost').innerHTML = nextCost;
 }
 
+function buyYano(){
+    var yanoCost = Math.floor(100000 * Math.pow(1.1,yanos));
+    if(money >= yanoCost){
+        yanos = yanos + 1;
+        money = money - yanoCost;
+        document.getElementById('yanos').innerHTML = yanos;
+        document.getElementById('money').innerHTML = money;
+    }
+    var nextCost = Math.floor(100000 * Math.pow(1.1,yanos));
+    document.getElementById('yanoCost').innerHTML = nextCost;
+}
+
+function buyBill(){
+    var billCost = Math.floor(10000000 * Math.pow(1.1,bills));
+    if(money >= billCost){
+        bills = bills + 1;
+        money = money - billCost;
+        document.getElementById('bills').innerHTML = bills;
+        document.getElementById('money').innerHTML = money;
+    }
+    var nextCost = Math.floor(10000000 * Math.pow(1.1,bills));
+    document.getElementById('billCost').innerHTML = nextCost;
+}
+
 function buyCoffeeMachine(){
     if(money >= 100){                                   
     	money = money - 100;
@@ -210,6 +248,19 @@ function buyRedBull(){
     }
 }
 
+function buyPizza(){
+    if(money >= 10000){                                   
+        money = money - 10000;
+        pizzatime = 100;
+        pizzamodifier = 8;
+        document.getElementById('money').innerHTML = money;
+        document.getElementById("pizza").innerHTML = "Pizza Party \\o/"
+        document.getElementById("pizza").className="badge progress-bar-success"
+        document.getElementById("pizzabutton").disabled = true;
+        document.getElementById("pizzatimelabel").innerHTML = 100;
+    }
+}
+
 function updateDisabledButtons(){
 
     var internCost = Math.floor(10 * Math.pow(1.1,interns));
@@ -233,12 +284,30 @@ function updateDisabledButtons(){
         document.getElementById('manishbutton').disabled = false;
     }
 
+    var yanoCost = Math.floor(100000 * Math.pow(1.1,yanos));
+    if(money < yanoCost){
+        document.getElementById('yanobutton').disabled = true;
+    }else{
+        document.getElementById('yanobutton').disabled = false;
+    }
+
+    var billCost = Math.floor(10000000 * Math.pow(1.1,bills));
+    if(money < billCost){
+        document.getElementById('billbutton').disabled = true;
+    }else{
+        document.getElementById('billbutton').disabled = false;
+    }
+
     if(!(money >= 100 && coffeetime<=0)){
          document.getElementById("coffeebutton").disabled = true;
     }
 
     if(!(money >= 1000 && redbulltime<=0)){
         document.getElementById("redbullbutton").disabled = true;
+    }
+
+    if(!(money >= 10000 && pizzatime<=0)){
+        document.getElementById("pizzabutton").disabled = true;
     }
 }
 
@@ -263,9 +332,19 @@ window.setInterval(function(){
 		redbullmodifier = 1;
         document.getElementById("redbullbutton").disabled = false;
 	}
+
+    if(pizzatime>0){
+        pizzatime = pizzatime - 1;
+        document.getElementById("pizzatimelabel").innerHTML = pizzatime;
+    }else{
+        document.getElementById("pizza").innerHTML = "No pizza :("
+        document.getElementById("pizza").className="badge progress-bar-danger"
+        pizzamodifier = 1;
+        document.getElementById("pizzabutton").disabled = false;
+    }
 	
-	globalmodifier = Math.max(coffeemodifier*redbullmodifier, 1);
-	dollarClick(globalmodifier*interns + globalmodifier*10*geeks + globalmodifier*100*manishes);	
+	globalmodifier = Math.max(coffeemodifier*redbullmodifier*pizzamodifier, 1);
+	dollarClick(globalmodifier*interns + globalmodifier*10*geeks + globalmodifier*100*manishes + globalmodifier*10000*yanos + globalmodifier*1000000*bills);	
 
 }, 1000);
 
