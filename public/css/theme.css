@@ -1,0 +1,28 @@
+body {
+  padding-top: 0px;
+  padding-bottom: 20px;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .container {
+  width: auto;
+}
+
+.navbar{
+	margin-bottom: 0;
+	width: auto;
+}
+
+.jumbotron{
+	text-align:center;
+	padding: 0.5em 0.6em;
+}
