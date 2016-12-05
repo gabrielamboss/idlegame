@@ -1,0 +1,21 @@
+{
+  "name": "Servidor",
+  "version": "1.0.0",
+  "description": "Servidor",
+  "main": "app.js",
+  "scripts":{
+  	"start": "node app.js"
+  },
+  "engines": {
+  	"node": "4.6.0"
+  },
+  "dependencies": {
+  	"body-parser": "^1.15.2",
+  	"express": "^4.14.0",
+  	"morgan": "^1.7.0"
+  },
+  "repository": {
+  	"type": "git",
+  	"url": "https://github.com/gabrielamboss/idlegame/tree/calango"
+  }
+}
