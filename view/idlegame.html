@@ -50,7 +50,7 @@
 		            	<div class="form-group">
 		              		<input type="password" placeholder="Password" class="form-control" id="password">
 		            	</div>
-		            	<a type="submit" class="btn btn-success" role = "button" onclick="sendCorsRequest()">Sign in</a>
+		            	<a type="submit" class="btn btn-success" role = "button" onclick="sendPostRequest()">Sign in</a>
 		          	</form>
 		        </div><!--/.navbar-collapse -->
 		    </div>
@@ -74,12 +74,29 @@
 
 		<div class="container theme-showcase" role="main">
 			<div class="row">
-		        <div class="col-md-4">
+		        <div class = col-md-1>
+					<img src="public/thumbnails/intern.png" class="img-thumbnail" width="100" height="100"  alt="Intern">
+					<br />
+					<br />
+					<img src="public/thumbnails/geek.png" class="img-thumbnail" width="100" height="100"  alt="Geek">
+					<br />
+					<br />
+					<br />
+					<img src="public/thumbnails/manish.png" class="img-thumbnail" width="100" height="100"  alt="Manish">
+					<br />
+					<br />
+					<br />
+					<img src="public/thumbnails/yano.png" class="img-thumbnail" width="100" height="100"  alt="Yano">
+					<br />
+					<br />
+					<img src="public/thumbnails/bill.png" class="img-thumbnail" width="100" height="100"  alt="Bill Gates">
+				</div>
+		        <div class="col-md-3">
 		        	<button id="internbutton" type="button" class="btn btn-primary" onclick="buyIntern()" disabled>Hire Intern</button>
 					<br />
 					Intern Cost: <span id="internCost">10</span>
 					<br />
-					Passively generates 1 dollar per second.
+					Generates 1 dollar per second.
 					<br />
 					<br />
 
@@ -87,7 +104,7 @@
 					<br />
 					Geek Cost: <span id="geekCost">100</span>
 					<br />
-					Passively generates 10 dollars per second.
+					Generates 10 dollars per second.
 					<br />
 					<br />
 
@@ -95,16 +112,53 @@
 					<br />
 					Manish Cost: <span id="manishCost">1000</span>
 					<br />
-					Passively generates 6671 rupees (100 dollars) per second.
+					Generates 6671 rupees (100 dollars) per second.
+					<br />
+					<br />
+
+					<button id="yanobutton" type="button" class="btn btn-primary" onclick="buyYano()" disabled>Hire Yano</button>
+					<br />
+					Yano Cost: <span id="yanoCost">100000</span>
+					<br />
+					Generates 10,000 dollars per second.
+					<br />
+					<br />
+
+					<button id="billbutton" type="button" class="btn btn-primary" onclick="buyBill()" disabled>Hire Bill Gates</button>
+					<br />
+					Bill Gates Cost: <span id="billCost">10000000</span>
+					<br />
+					Generates 1,000,000 dollars per second.
 					<br />
 					<br />
 		        </div>
-		        <div class="col-md-4">
+		        <div class="col-md-1">
+		        	<img src="public/thumbnails/coffee.png" class="img-thumbnail" width="100" height="100"  alt="Coffee Machine">
+		        	<br />
+		        	<br />
+		        	<br />
+		        	<br />
+		        	<img src="public/thumbnails/redbull.png" class="img-thumbnail" width="100" height="100"  alt="Red Bull">
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<img src="public/thumbnails/pizza.png" class="img-thumbnail" width="100" height="100"  alt="Pizza">
+					<br />
+					<br />
+					<br />
+					<br />	
+					<img src="public/thumbnails/keyboard.png" class="img-thumbnail" width="100" height="100"  alt="Keyboard">
+		        </div>
+		        <div class="col-md-3">
 		        	<button id="coffeebutton" type="button" class="btn btn-warning" onclick="buyCoffeeMachine()" disabled>Buy Coffee Machine</button>
 					<br />
 					Coffee Machine Cost: <span id="coffeeCost">100</span>
 					<br />
-					Multiplies coding efficiency by 2 for 10 seconds.
+					Multiplies coding efficiency by 2.
+					<br />
+					Lasts 10 seconds.
 					<br />
 					Time left: <span id="coffeetimelabel">0</span>
 					<br />
@@ -114,11 +168,31 @@
 					<br />
 					Red Bull Cost: <span id="redbullCost">1000</span>
 					<br />
-					Multiplies coding efficiency by 4 for 10 seconds.
+					Multiplies coding efficiency by 4.
+					<br />
+					Lasts 10 seconds.
 					<br />
 					Time left: <span id="redbulltimelabel">0</span>
 					<br />
 					<br />
+
+					<button id="pizzabutton" type="button" class="btn btn-warning" onclick="buyPizza()" disabled>Buy Pizza</button>
+					<br />
+					Pizza Cost: <span id="pizzaCost">10000</span>
+					<br />
+					Multiplies coding efficiency by 8.
+					<br />
+					Lasts 100 seconds.
+					<br />
+					Time left: <span id="pizzatimelabel">0</span>
+					<br />
+					<br />
+
+					<button id="keyboardbutton" type="button" class="btn btn-warning" onclick="buyKeyboard()" disabled>Buy Hindi Keyboard</button>
+					<br />
+					Hindi Keyboard Cost: <span id="keyboardCost">500</span>
+					<br />
+					Multiplies a Manish's efficiency by 2.
 		        </div>
 		        <div class="col-md-4">
 		        	<div class="list-group">
@@ -126,8 +200,12 @@
 			            <a class="list-group-item">Interns<span class="badge" id="interns">0</span></a>
 			            <a class="list-group-item">Geeks<span class="badge" id="geeks">0</span></a>
 			            <a class="list-group-item">Manishes<span class="badge" id="manishes">0</span></a>
+			            <a class="list-group-item">Hindi Keyboards<span class="badge progress-bar-danger" id="keyboards">0</span></a>
+			            <a class="list-group-item">Yanos<span class="badge" id="yanos">0</span></a>
+			            <a class="list-group-item">Bills<span class="badge" id="bills">0</span></a>
 			            <a class="list-group-item">Coffee Machine<span class="badge progress-bar-danger" id="coffee">Disabled</span></a>
 			            <a class="list-group-item">Red Bull Supply<span class="badge progress-bar-danger" id="redbull">Empty</span></a>
+			            <a class="list-group-item">Pizza<span class="badge progress-bar-danger" id="pizza">No pizza :(</span></a>
 			        </div>
 		        </div>
 		    </div>
