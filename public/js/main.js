@@ -11,9 +11,9 @@ var coffeemodifier = 1;
 var redbullmodifier = 1;
 var pizzamodifier = 1;
 var globalmodifier;
+var keyboards = 0;
 
-//getState();
-money = 1000000000;
+getState();
 
 function createCookie(name, value, days) {
     var expires;
@@ -50,7 +50,7 @@ function dollarClick(number){
 
 function saveState(){
 	var name = "state";
-	var json = {"money":money, "interns": interns, "geeks": geeks, "manishes": manishes, "yanos": yanos, "bills": bills};
+	var json = {"money":money, "interns": interns, "geeks": geeks, "manishes": manishes, "yanos": yanos, "bills": bills, "keyboards": keyboards};
 	var days = 3;
 	var value = JSON.stringify(json);
 	localStorage.setItem('state', value);
@@ -77,6 +77,7 @@ function getState(){
 	manishes = json.manishes;
     yanos = json.yanos;
     bills = json.bills;
+    keyboards = json.keyboards;
 
     updateWorkersFromSave();
 
@@ -139,6 +140,7 @@ function updateWorkersFromSave(){
     document.getElementById('manishes').innerHTML = manishes;
     document.getElementById('yanos').innerHTML = yanos;
     document.getElementById('bills').innerHTML = bills;
+    document.getElementById('keyboards').innerHTML = keyboards;
 
     var nextCost = Math.floor(10 * Math.pow(1.1,interns));
     document.getElementById('internCost').innerHTML = nextCost;
@@ -154,6 +156,7 @@ function updateWorkersFromSave(){
 
     nextCost = Math.floor(10000000 * Math.pow(1.1,bills));
     document.getElementById('billCost').innerHTML = nextCost;
+
 }
 
 function eraseLabelAfterSeconds(seconds){
@@ -261,6 +264,16 @@ function buyPizza(){
     }
 }
 
+function buyKeyboard(){
+    if(money >= 500){
+        money = money - 500;
+        keyboards = keyboards + 1;
+        document.getElementById('money').innerHTML = money;
+        document.getElementById("keyboards").innerHTML = keyboards;
+    }
+
+}
+
 function updateDisabledButtons(){
 
     var internCost = Math.floor(10 * Math.pow(1.1,interns));
@@ -309,6 +322,18 @@ function updateDisabledButtons(){
     if(!(money >= 10000 && pizzatime<=0)){
         document.getElementById("pizzabutton").disabled = true;
     }
+
+    if(money < 500 || keyboards >= manishes){
+        document.getElementById("keyboardbutton").disabled = true;
+    }else{
+        document.getElementById("keyboardbutton").disabled = false;
+    }
+
+    if(keyboards >= manishes){
+        document.getElementById("keyboards").className="badge progress-bar-success";
+    }else{
+        document.getElementById("keyboards").className="badge progress-bar-danger";
+    }
 }
 
 window.setInterval(function(){
@@ -344,7 +369,7 @@ window.setInterval(function(){
     }
 	
 	globalmodifier = Math.max(coffeemodifier*redbullmodifier*pizzamodifier, 1);
-	dollarClick(globalmodifier*interns + globalmodifier*10*geeks + globalmodifier*100*manishes + globalmodifier*10000*yanos + globalmodifier*1000000*bills);	
+	dollarClick(globalmodifier*interns + globalmodifier*10*geeks + globalmodifier*100*manishes + globalmodifier*10000*yanos + globalmodifier*1000000*bills + globalmodifier*100*keyboards);	
 
 }, 1000);
 
