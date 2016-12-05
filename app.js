@@ -9,8 +9,8 @@ var router = Express.Router();
 var Player = require('./models/player');
 
 mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost/test');
-mongoose.connect('mongodb://danielsousat:calangot17@ds119718.mlab.com:19718/idlegameyano/test');
+mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb://danielsousat:calangot17@ds119718.mlab.com:19718/idlegameyano/test');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
@@ -47,7 +47,6 @@ router.route('/player')
         player.yanos = req.body.yanos;
         player.bills = req.body.bills;
         player.keyboards = req.body.keyboards;
-        // player.name = req.params.name
         
     	Player.findOne( {name: player.name} , function(err, object){
     		if(err)

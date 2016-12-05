@@ -14,8 +14,6 @@ var pizzamodifier = 1;
 var globalmodifier;
 var keyboards = 0;
 
-getState();
-
 function createCookie(name, value, days) {
     var expires;
     if (days) {
@@ -50,9 +48,11 @@ function dollarClick(number){
 }
 
 function saveState(){
-	var json = {"name":name, "money":money, "interns": interns, "geeks": geeks, "manishes": manishes, "yanos": yanos, "bills": bills, "keyboards": keyboards};
-	var value = JSON.stringify(json);
-	localStorage.setItem('state', value);
+	
+    var json = {"name": email, "money":money, "interns": interns, "geeks": geeks, "manishes": manishes, "yanos": yanos, "bills": bills, "keyboards": keyboards};
+    var value = JSON.stringify(json);
+    console.log(value); 
+    http.send(value);
 
     document.getElementById('loadLabel').innerHTML = "Saved";
     eraseLabelAfterSeconds(3);
@@ -83,52 +83,11 @@ function getState(){
     eraseLabelAfterSeconds(3);
 }
 
-// function createCORSRequest(method, url) {
-//     var xhr = new XMLHttpRequest();
-//     if ("withCredentials" in xhr) {
-//       // XHR for Chrome/Firefox/Opera/Safari.
-//       xhr.open(method, url, true);
-//     } else if (typeof XDomainRequest != "undefined") {
-//       // XDomainRequest for IE.
-//       xhr = new XDomainRequest();
-//       xhr.open(method, url);
-//     } else {
-//       // CORS not supported.
-//       xhr = null;
-//     }
-//     return xhr;
-// }
-
-// function sendCorsRequest(method) {
-//     // This is a sample server that supports CORS.
-//     var url = 'http://localhost:5000/player';
-
-//     var xhr = createCORSRequest(method, url);
-//     if (!xhr) {
-//       alert('CORS not supported');
-//       return;
-//     }
-
-//     // Response handlers.
-//     xhr.onload = function() {
-//       var text = xhr.responseText;
-//       console.log(text)
-//       alert('Response from CORS request to ' + url + text);
-//     };
-
-//     xhr.onerror = function() {
-//       alert('Woops, there was an error making the request.');
-//     };
-
-//     var email = document.getElementById('email').value;
-//     console.log(email)
-//     xhr.send(email);
-// }
 
 function sendPostRequest(){
     var email = document.getElementById('email').value;
-    // var url = 'http://localhost:5000/player';
-    var url = 'http://idlegame.herokuapp.com/player';
+    var url = 'http://localhost:5000/player';
+    // var url = 'http://idlegame.herokuapp.com/player';
  	var http = new XMLHttpRequest();
 	var params = email;
 	http.open("POST", url, true);
