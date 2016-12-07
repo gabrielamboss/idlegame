@@ -14,6 +14,8 @@ var pizzamodifier = 1;
 var globalmodifier;
 var keyboards = 0;
 
+getState();
+
 function createCookie(name, value, days) {
     var expires;
     if (days) {
@@ -48,11 +50,12 @@ function dollarClick(number){
 }
 
 function saveState(){
-	
-    var json = {"name": email, "money":money, "interns": interns, "geeks": geeks, "manishes": manishes, "yanos": yanos, "bills": bills, "keyboards": keyboards};
-    var value = JSON.stringify(json);
-    console.log(value); 
-    http.send(value);
+	var name = "state";
+	var json = {"money":money, "interns": interns, "geeks": geeks, "manishes": manishes, "yanos": yanos, "bills": bills, "keyboards": keyboards};
+	var days = 3;
+	var value = JSON.stringify(json);
+	localStorage.setItem('state', value);
+	// createCookie(name, value, days)
 
     document.getElementById('loadLabel').innerHTML = "Saved";
     eraseLabelAfterSeconds(3);
@@ -344,7 +347,7 @@ window.setInterval(function(){
     }
 
 	globalmodifier = Math.max(coffeemodifier*redbullmodifier*pizzamodifier, 1);
-    dollarClick(globalmodifier*interns + globalmodifier*10*geeks + globalmodifier*100*manishes + globalmodifier*10000*yanos + globalmodifier*1000000*bills + globalmodifier*100*keyboards); 
+	dollarClick(globalmodifier*interns + globalmodifier*10*geeks + globalmodifier*100*manishes + globalmodifier*10000*yanos + globalmodifier*1000000*bills + globalmodifier*100*keyboards);	
 
 }, 1000);
 
